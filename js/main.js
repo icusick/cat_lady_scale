@@ -49,7 +49,7 @@ $(document).ready(function(){
         new Behavior("is mad at cats for destroying the songbird population of england", -10),
         new Behavior("hates cat hair on clothes", -4), 
         new Behavior("thinks tigers are cool, but housecats are pretty fucking lame", 1),
-        new Behavior("considers 'accidentally' leaving the window open so man-man will escape and stop marching around and mewling his insuffereable yowl", -12)
+        new Behavior("considers 'accidentally' leaving the window open so man-man will escape and stop marching around and mewling his insuffereable yowl", -6)
         // -----------------------------------------------------------------------------------------
         // TODO: CHALLENGE 1
         // add some more behaviors cat lady behaviors here to customize your app!
@@ -73,6 +73,7 @@ $(document).ready(function(){
         2: new Status("I wish I were allergic", 'allergic.jpg' ),
         1: new Status("Cats...like, the musical?", 'cats.jpg' ),
         0: new Status("What's a cat? Never heard of 'em", 'dog_heaven.jpg' ),
+        // -1: new Status("Don't care for them, not one bit,", 'negative_1.jpg')
     };
 
     /*
@@ -106,12 +107,20 @@ $(document).ready(function(){
             //    point values. ** when adding up the point values, start the sum at 5 (indifferent)
             //    on the scale.
             //--------------------------------------------------------------------------------------
-            var behaviors = this.behaviors;
-            for (var i = 0; i < behaviors.length; i++ ) {
-                var sum =  5 + behaviors[i].pointValue
-                console.log(behaviors[i])
+            
+            var sum = 5
+            for (var i = 0; i < this.behaviors.length; i++ ) {
+                 sum += this.behaviors[i].pointValue
             }
-            this.status = CAT_LADY_SCALE[sum]
+            console.log(sum)
+            if (sum <= 10) {
+                this.status = CAT_LADY_SCALE[sum]
+            } else if (sum > 10) {
+                alert("you like cats too much. find a hobby. your hobby cannot be knitting. if you're this into cats, you probably already knit. get out there, make some friends, watch avatar or buffy. i don't know. i don't actually care.");
+            } else {
+                alert("you really hate cats. well done. now you can leave this site and find one about how awesome dogs are. or buffy. whatever you're into."); 
+            };
+            
             // console.log(this.behaviors)
             //--------------------------------------------------------------------------------------
             // TODO: CHALLENGE 9
@@ -145,12 +154,8 @@ $(document).ready(function(){
         //    field located in the html. This will be tricky... before you start try selecting
         //    different options in dropdown and observe what happens to the html.
         //------------------------------------------------------------------------------------------
-        // var selectedBehavior = $('#behavior-select').val()
-        // the following log came from stack overflow
-       
-        // console.log($('#behavior-select').find('option:selected').text())
-        // console.log('clicked')
-        var selectedBehavior = $('#behavior-select').find('option:selected').text();
+        var selectedBehaviorIndex = $('#behavior-select').val()
+        // console.log(selectedBehaviorIndex)
 
         //------------------------------------------------------------------------------------------
         // TODO: CHALLENGE 6
@@ -158,7 +163,7 @@ $(document).ready(function(){
         //    catLadyBehaviors array.
         // 4. Now add the behavior to the catLady object.
         //------------------------------------------------------------------------------------------
-        
+        var selectedBehavior = catLadyBehaviors[selectedBehaviorIndex]
         catLady.addBehavior(selectedBehavior);
         console.log(catLady.behaviors)
         catLady.updateStatus();
@@ -167,7 +172,8 @@ $(document).ready(function(){
         // TODO: CHALLENGE 7
         // 5. Display the newly added behavior with the displayNewBehavior function.
         //------------------------------------------------------------------------------------------
-
+        displayNewBehavior(selectedBehavior)
+        displayStatus(catLady.status)
         //------------------------------------------------------------------------------------------
         // TODO: CHALLENGE 10
         // 1. Display the cat lady status, with the displayStatus function;
@@ -181,6 +187,8 @@ $(document).ready(function(){
      */
     function displayNewBehavior (behavior){
         
+        var listItem = behavior.getListItem();
+        $(listItem).appendTo('.behavior-list');
 
         //------------------------------------------------------------------------------------------
         // TODO: CHALLENGE 3
@@ -195,8 +203,12 @@ $(document).ready(function(){
      * Update Status Display
      * updates the cat lady status display in the html with the cat status object it was passed
      */
-    function displayStatus (catLadyStatus)
-    {
+    function displayStatus (catLadyStatus){
+            // var theStatus = catLadyStatus.imagepath()
+            // $(theStatus).appendTo('.status-display')  
+           $('.status-image img').attr("src", catLadyStatus.imagePath()); 
+             // $('.status-title').html(catLady.status.title);   
+             console.log(catLadyStatus.imagePath())
         //------------------------------------------------------------------------------------------
         // TODO: CHALLENGE 11
         // Here you should use jquery to to update the Cat Lady Status Display. To do this:
@@ -204,6 +216,15 @@ $(document).ready(function(){
         // 2. update the status title in the html
         // ** make sure to checkout the status object for help!
         //------------------------------------------------------------------------------------------
+        // function Status (title, image) {
+        //     this.title = title;
+        //     this.image = image;
+        // }
+        // Status.prototype = {
+        //     imagePath: function (){
+        //     return 'images/' + this.image;
+        // }
+        // }
     }
 
     /*
