@@ -46,6 +46,10 @@ $(document).ready(function(){
         new Behavior("own more than one cat", 5),
         new Behavior("own more than one dog", -5),
         new Behavior("takes selfies with cats", 4),
+        new Behavior("is mad at cats for destroying the songbird population of england", -10),
+        new Behavior("hates cat hair on clothes", -4), 
+        new Behavior("thinks tigers are cool, but housecats are pretty fucking lame", 1),
+        new Behavior("considers 'accidentally' leaving the window open so man-man will escape and stop marching around and mewling his insuffereable yowl", -12)
         // -----------------------------------------------------------------------------------------
         // TODO: CHALLENGE 1
         // add some more behaviors cat lady behaviors here to customize your app!
@@ -81,6 +85,8 @@ $(document).ready(function(){
     var catLady = {
         behaviors: [],
         addBehavior : function (newBehavior) {
+                    this.behaviors.push(newBehavior);
+                    this.updateStatus();
             //--------------------------------------------------------------------------------------
             // TODO: CHALLENGE 2
             // Implement the add behavior function. This function should:
@@ -100,7 +106,13 @@ $(document).ready(function(){
             //    point values. ** when adding up the point values, start the sum at 5 (indifferent)
             //    on the scale.
             //--------------------------------------------------------------------------------------
-
+            var behaviors = this.behaviors;
+            for (var i = 0; i < behaviors.length; i++ ) {
+                var sum =  5 + behaviors[i].pointValue
+                console.log(behaviors[i])
+            }
+            this.status = CAT_LADY_SCALE[sum]
+            // console.log(this.behaviors)
             //--------------------------------------------------------------------------------------
             // TODO: CHALLENGE 9
             // Use the pointValue sum to determine where on the scale this cat lady is. Match the
@@ -126,13 +138,19 @@ $(document).ready(function(){
         // TODO: CHALLENGE 4
         // 1. Prevent the default page reload using jquery.
         //------------------------------------------------------------------------------------------
-
+            e.preventDefault();
         //------------------------------------------------------------------------------------------
         // TODO: CHALLENGE 5
         // 2. Grab the catLadyBehavior index value from the behavior option in the behavior-select
         //    field located in the html. This will be tricky... before you start try selecting
         //    different options in dropdown and observe what happens to the html.
         //------------------------------------------------------------------------------------------
+        // var selectedBehavior = $('#behavior-select').val()
+        // the following log came from stack overflow
+       
+        // console.log($('#behavior-select').find('option:selected').text())
+        // console.log('clicked')
+        var selectedBehavior = $('#behavior-select').find('option:selected').text();
 
         //------------------------------------------------------------------------------------------
         // TODO: CHALLENGE 6
@@ -140,7 +158,11 @@ $(document).ready(function(){
         //    catLadyBehaviors array.
         // 4. Now add the behavior to the catLady object.
         //------------------------------------------------------------------------------------------
-
+        
+        catLady.addBehavior(selectedBehavior);
+        console.log(catLady.behaviors)
+        catLady.updateStatus();
+        console.log("status:", catLady.status)
         //------------------------------------------------------------------------------------------
         // TODO: CHALLENGE 7
         // 5. Display the newly added behavior with the displayNewBehavior function.
@@ -157,8 +179,9 @@ $(document).ready(function(){
      * Display New Behavior
      * add the passed in behavior to the display in the behavior list in the html
      */
-    function displayNewBehavior (behavior)
-    {
+    function displayNewBehavior (behavior){
+        
+
         //------------------------------------------------------------------------------------------
         // TODO: CHALLENGE 3
         // Here you should use jquery to to add the correct behavior item div to the behavior-list
