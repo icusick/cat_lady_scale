@@ -116,9 +116,12 @@ $(document).ready(function(){
             if (sum <= 10) {
                 this.status = CAT_LADY_SCALE[sum]
             } else if (sum > 10) {
-                alert("you like cats too much. find a hobby. your hobby cannot be knitting. if you're this into cats, you probably already knit. get out there, make some friends, watch avatar or buffy. i don't know. i don't actually care.");
+                this.status = CAT_LADY_SCALE[10]
+                alert("you like cats too much. find a hobby. your hobby cannot be knitting. if you're this into cats, you probably already knit. get out there, make some friends. or stay in and watch avatar or buffy. i don't know. and i don't care.");
             } else {
+                this.status = CAT_LADY_SCALE[0]
                 alert("you really hate cats. well done. now you can leave this site and find one about how awesome dogs are. or buffy. whatever you're into."); 
+                    return
             };
             
             // console.log(this.behaviors)
@@ -207,7 +210,7 @@ $(document).ready(function(){
             // var theStatus = catLadyStatus.imagepath()
             // $(theStatus).appendTo('.status-display')  
            $('.status-image img').attr("src", catLadyStatus.imagePath()); 
-             // $('.status-title').html(catLady.status.title);   
+             $('.status-title').html(catLady.status.title);   
              console.log(catLadyStatus.imagePath())
         //------------------------------------------------------------------------------------------
         // TODO: CHALLENGE 11

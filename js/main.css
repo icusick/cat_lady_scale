@@ -1,0 +1,26 @@
+.circle {
+	height: 15px;
+	width: 15px;
+	border: 2px solid black;
+	border-radius: 50%;
+	margin-left: 10px;
+}
+
+.newScale {
+	display: flex;
+	flex-direction: row;
+	/*justify-content: space-between;*/
+}
+
+.rank {
+	margin-right: 21px;
+}
+
+.number-scale {
+	margin-left: 15px;
+}
+
+.behavior-form {
+	display: flex;
+	flex-direction: column;
+}
